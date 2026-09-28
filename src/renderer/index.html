@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Clicker Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Custom Title Bar -->
+    <header class="titlebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Auto Clicker</span>
+          <span class="brand-badge">PRO</span>
+        </div>
+      </div>
+
+      <div class="window-controls">
+        <button id="btn-pin" class="control-btn" title="Fixar sempre no topo" aria-label="Fixar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="17" x2="12" y2="22"></line>
+            <path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path>
+          </svg>
+        </button>
+        <button id="btn-minimize" class="control-btn" title="Minimizar" aria-label="Minimizar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+        <button id="btn-close" class="control-btn btn-close" title="Fechar" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Scrollable Area -->
+    <main class="content-scroll">
+      <!-- Live Status & Stats Card -->
+      <section class="card status-card">
+        <div class="status-header">
+          <div class="status-indicator-container">
+            <div id="status-dot" class="status-dot stopped"></div>
+            <span id="status-text" class="status-text stopped">PARADO</span>
+          </div>
+          <div class="timer-display" id="timer-display">00:00:00</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Cliques Totais</span>
+            <span class="stat-value" id="stat-clicks">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Velocidade (CPS)</span>
+            <span class="stat-value highlight" id="stat-cps">0.0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Atalho Ativo</span>
+            <span class="stat-value shortcut-tag" id="stat-hotkey">F8</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interval & Speed Card -->
+      <section class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Intervalo entre Cliques
+        </div>
+
+        <!-- Presets -->
+        <div class="preset-pills">
+          <button class="pill" data-interval="10" data-unit="ms">10ms <span class="pill-cps">100 CPS</span></button>
+          <button class="pill" data-interval="50" data-unit="ms">50ms <span class="pill-cps">20 CPS</span></button>
+          <button class="pill" data-interval="100" data-unit="ms">100ms <span class="pill-cps">10 CPS</span></button>
+          <button class="pill active" data-interval="500" data-unit="ms">500ms <span class="pill-cps">2 CPS</span></button>
+          <button class="pill" data-interval="1000" data-unit="ms">1.0s <span class="pill-cps">1 CPS</span></button>
+        </div>
+
+        <!-- Custom Input -->
+        <div class="input-row custom-interval-row">
+          <div class="input-group flex-1">
+            <label for="interval-input">Tempo Personalizado:</label>
+            <input type="number" id="interval-input" value="500" min="1" step="1" placeholder="Ex: 500">
+          </div>
+          <div class="input-group unit-select-group">
+            <label for="unit-select">Unidade:</label>
+            <select id="unit-select">
+              <option value="ms" selected>Milissegundos (ms)</option>
+              <option value="s">Segundos (s)</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mouse Configuration Card -->
+      <section class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="6"/><line x1="12" y1="7" x2="12" y2="11"/></svg>
+          Configurações do Clique
+        </div>
+
+        <div class="grid-2-col">
+          <div class="input-group">
+            <label for="mouse-button">Botão do Mouse:</label>
+            <select id="mouse-button">
+              <option value="left" selected>Esquerdo (Principal)</option>
+              <option value="right">Direito (Secundário)</option>
+              <option value="middle">Central (Scroll)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="click-type">Tipo de Clique:</label>
+            <select id="click-type">
+              <option value="single" selected>Clique Único</option>
+              <option value="double">Clique Duplo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Repeat Mode -->
+        <div class="repeat-section">
+          <div class="radio-label-title">Repetição:</div>
+          <div class="radio-group">
+            <label class="custom-radio">
+              <input type="radio" name="repeat-mode" value="infinite" checked>
+              <span class="radio-mark"></span>
+              <span>Até ser parado (Infinito)</span>
+            </label>
+            <label class="custom-radio">
+              <input type="radio" name="repeat-mode" value="count">
+              <span class="radio-mark"></span>
+              <span>Parar após:</span>
+            </label>
+            <div class="repeat-count-box">
+              <input type="number" id="repeat-count-input" value="100" min="1" disabled>
+              <span class="count-unit">cliques</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lateral Movement (Anti-AFK) Card -->
+      <section class="card">
+        <div class="card-header-toggle">
+          <div class="card-title no-margin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/><polyline points="9 18 3 12 9 6"/><polyline points="21 18 15 12 21 6"/></svg>
+            Movimento Lateral (Esquerda ↔ Direita)
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="move-switch">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <p class="card-desc">Oscila levemente o mouse a cada clique para evitar detecção de inatividade e antifraudes.</p>
+
+        <div class="move-details disabled" id="move-details">
+          <div class="slider-header">
+            <span>Distância do movimento:</span>
+            <span class="slider-val" id="move-val">5 px</span>
+          </div>
+          <input type="range" id="move-slider" min="1" max="25" value="5" step="1">
+          <div class="slider-ticks">
+            <span>1 px</span>
+            <span>12 px</span>
+            <span>25 px</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Click Position Card -->
+      <section class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+          Posição do Clique
+        </div>
+
+        <div class="radio-group mb-10">
+          <label class="custom-radio">
+            <input type="radio" name="pos-mode" value="current" checked>
+            <span class="radio-mark"></span>
+            <span>Posição atual do cursor</span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="pos-mode" value="fixed">
+            <span class="radio-mark"></span>
+            <span>Coordenadas fixas</span>
+          </label>
+        </div>
+
+        <div class="coords-row disabled" id="coords-row">
+          <div class="coord-field">
+            <span>X:</span>
+            <input type="number" id="coord-x" placeholder="0" disabled>
+          </div>
+          <div class="coord-field">
+            <span>Y:</span>
+            <input type="number" id="coord-y" placeholder="0" disabled>
+          </div>
+          <button id="btn-pick-pos" class="btn-secondary" disabled title="Captura a posição atual do seu cursor na tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Capturar Posição
+          </button>
+        </div>
+      </section>
+
+      <!-- Advanced Settings & Shortcuts -->
+      <section class="card">
+        <div class="card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Preferências & Atalho
+        </div>
+
+        <div class="grid-2-col">
+          <div class="input-group">
+            <label for="hotkey-select">Tecla de Atalho Global:</label>
+            <select id="hotkey-select">
+              <option value="F8" selected>F8 (Padrão)</option>
+              <option value="F6">F6</option>
+              <option value="F7">F7</option>
+              <option value="F9">F9</option>
+              <option value="F10">F10</option>
+              <option value="F12">F12</option>
+            </select>
+          </div>
+          <div class="input-group audio-toggle-group">
+            <label for="sound-switch">Feedback Sonoro:</label>
+            <div class="switch-row">
+              <label class="switch">
+                <input type="checkbox" id="sound-switch" checked>
+                <span class="slider round"></span>
+              </label>
+              <span class="switch-text">Bipes de clique</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Action Bar & Emergency Fail-Safe -->
+    <footer class="action-footer">
+      <div id="failsafe-banner" class="failsafe-banner hidden">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Fail-Safe ativado! Execução interrompida no canto superior esquerdo.</span>
+      </div>
+
+      <button id="btn-toggle" class="btn-main start">
+        <div class="btn-glow"></div>
+        <div class="btn-inner">
+          <svg class="icon-start" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <svg class="icon-stop hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+          <span id="btn-toggle-text">Iniciar (F8)</span>
+        </div>
+      </button>
+
+      <div class="failsafe-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span><strong>Emergência:</strong> Arraste o mouse para o canto superior esquerdo (0,0) para parar.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

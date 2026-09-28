@@ -19,3 +19,8 @@ Thumbs.db
 
 # Gemini / Agent artifacts
 .gemini/
+
+# Node & Electron
+node_modules/
+dist/
+bin/ClickerBackend.exe

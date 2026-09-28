@@ -1,87 +1,95 @@
-# Auto Clicker Avançado (CustomTkinter)
+# ⚡ Auto Clicker Pro (Electron + Native C# Backend)
 
-Um aplicativo desktop moderno, intuitivo e de alta performance para **Auto Clicker** construído em Python. Utiliza a biblioteca **CustomTkinter** para uma interface com tema escuro elegante, **PyAutoGUI** para simulação de cliques e movimento do mouse, e **Keyboard** para suporte a atalhos de teclado globais.
-
----
-
-## 📖 Manual de Uso Completo
-
-### 1. Requisitos do Sistema
-- **Sistema Operacional**: Windows 10 / 11 (ou Linux / macOS)
-- **Python**: Versão 3.8 ou superior instalada.
+Um aplicativo desktop de alta performance para **Auto Clicker**, agora totalmente atualizado com interface moderna em **Electron** e motor nativo de alta precisão em **C# Win32**, além do suporte à versão original em Python.
 
 ---
 
-### 2. Instalação das Dependências
+## 🚀 Como Instalar e Rodar na sua Máquina
 
-As dependências estão listadas no arquivo `requirements.txt`:
+### 📦 Opção 1: Usando o Instalador Windows (Recomendado)
+Após o empacotamento, você encontrará os executáveis prontos dentro da pasta `dist/`:
 
-```bash
-pip install -r requirements.txt
-```
-
-*(Dependências: `customtkinter`, `pyautogui`, `keyboard`, `pillow`)*.
+1. **Instalador Completo com Atalho na Área de Trabalho**:
+   - Execute o arquivo: `dist/Auto Clicker Pro Setup 2.0.0.exe`
+   - O assistente instalará o aplicativo no seu Windows e criará os atalhos no Menu Iniciar e na Área de Trabalho.
+2. **Versão Portátil (Sem Instalação)**:
+   - Execute diretamente: `dist/Auto Clicker Pro 2.0.0.exe`
 
 ---
 
-### 3. Como Executar o Aplicativo
+### 💻 Opção 2: Rodando no Modo Desenvolvedor (Electron)
 
-Existem duas formas de executar o aplicativo no Windows:
+Se preferir rodar direto pelo terminal com Node.js:
 
-#### 🟢 Método 1: Execução Padrão (Interface Gráfica)
-Abra o terminal (PowerShell ou Prompt de Comando) na pasta do projeto e execute:
-```bash
-python app.py
-```
-
-#### 🛡️ Método 2: Execução como Administrador (Recomendado)
-Para que a tecla de atalho **F8** funcione globalmente em segundo plano (enquanto você joga ou utiliza outros programas):
-
-1. Abra o menu Iniciar do Windows e pesquise por **PowerShell** ou **CMD**.
-2. Clique com o **botão direito** e selecione **"Executar como Administrador"**.
-3. Acesse a pasta do projeto:
-   ```powershell
-   cd C:\Users\Pichau\Desktop\Autoclicker
+1. Instale as dependências:
+   ```bash
+   npm install
    ```
-4. Execute o programa:
-   ```powershell
-   python app.py
+2. Compile o motor nativo (caso faça alterações no código C#):
+   ```bash
+   npm run compile:backend
+   ```
+3. Inicie o aplicativo:
+   ```bash
+   npm start
    ```
 
 ---
 
-### 🎮 Como Usar as Funcionalidades
-
-1. **Intervalo entre Cliques**:
-   - Digite o tempo em segundos no campo *"Intervalo entre cliques"*.
-   - Aceita valores decimais como `0.1` (100ms), `0.5` (500ms), `2.0` (2s).
-   - Se um valor inválido for digitado, o sistema usa o valor padrão seguro de `0.5` segundos.
-
-2. **Botão do Mouse**:
-   - Escolha entre **Esquerdo**, **Direito** ou **Central**.
-
-3. **Movimento Lateral do Mouse (Novo 🔥)**:
-   - Ative a opção **"Mover mouse (Esquerda ↔ Direita)"**.
-   - Escolha a distância do movimento lateral de **1 px** até **10 px** (o valor padrão é **5 px**).
-   - A cada clique, o cursor fará uma leve oscilação alternada para a esquerda e para a direita na quantidade de pixels selecionada, evitando a inatividade da tela ou bloqueios por antifraude.
-
-4. **Iniciar / Parar os Cliques**:
-   - Pressione a tecla **F8** no teclado a qualquer momento (mesmo minimizado) ou clique no botão **"Iniciar (F8)"**.
-   - Para parar, pressione **F8** novamente ou clique em **"Parar (F8)"**.
+### 🔨 Como Gerar o Instalador Novamente
+Para gerar um novo instalador e executável portátil a qualquer momento:
+```bash
+npm run dist
+```
+Os arquivos gerados serão salvos na pasta `dist/`:
+- `Auto Clicker Pro Setup 2.0.0.exe` (Instalador NSIS)
+- `Auto Clicker Pro 2.0.0.exe` (Executável Portátil Standalone)
 
 ---
+
+## 🎮 Recursos e Funcionalidades
+
+### ⚡ Motor Nativo de Alta Precisão (1ms)
+- Suporta frequências extremas de **100+ cliques por segundo (CPS)** sem atraso ou travamentos.
+- Utiliza a API Win32 `timeBeginPeriod(1)` para resolução precisa de milissegundos.
+
+### ⏱️ Presets Rápidos e Intervalo Customizável
+- **10ms**: 100 CPS (Modo Gamer Extremo)
+- **50ms**: 20 CPS (Ultra Rápido)
+- **100ms**: 10 CPS (Rápido)
+- **500ms**: 2 CPS (Padrão Seguro)
+- **1000ms**: 1 CPS (Lento)
+- Suporte a entrada manual em **Milissegundos (ms)** ou **Segundos (s)**.
+
+### 🖱️ Botões e Modos de Clique
+- Botão do mouse: **Esquerdo**, **Direito** ou **Central (Scroll)**.
+- Tipo de clique: **Clique Único** ou **Clique Duplo**.
+- Modo de repetição: **Infinito** (até parar) ou **Limite de Cliques** (parar após N cliques).
+
+### ↔️ Movimento Lateral Anti-Detecção / Anti-AFK
+- Ative o switch de movimento lateral para que o mouse oscile suavemente entre a esquerda e a direita (1 a 25 pixels).
+- Ideal para evitar detecção de cliques estáticos e inatividade em jogos e ferramentas.
+
+### 🎯 Localização do Clique
+- **Posição Atual do Cursor**: clica onde o mouse estiver apontando.
+- **Coordenadas Fixas (X, Y)**: defina coordenadas exatas na tela com botão para capturar a posição atual do ponteiro.
+
+### ⌨️ Atalho Global Customizável
+- Tecla padrão: **F8** (funciona mesmo em tela cheia de jogos ou janelas em segundo plano).
+- Opções de seleção: **F8**, **F6**, **F7**, **F9**, **F10**, **F12**.
 
 ### 🚨 Sistema de Emergência (Fail-Safe)
+- Para parar imediatamente em qualquer emergência, **arraste o mouse rapidamente para o canto superior esquerdo da tela (0,0)**.
+- O clique é interrompido no mesmo instante e um alerta visual/sonoro é acionado.
 
-O aplicativo conta com o recurso **Fail-Safe** ativo do PyAutoGUI:
-- Para interromper imediatamente os cliques em caso de emergência, basta **mover rapidamente o cursor do mouse para o canto superior esquerdo da tela**.
-- O clique e o movimento serão interrompidos instantaneamente e o status mudará para `INTERROMPIDO (FAIL-SAFE)`.
+### 📌 Janela Flutuante (Always on Top)
+- Clique no botão de alfinete (Pin) no canto superior direito da barra de título para manter a janela sempre visível por cima de jogos e outros programas.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
-
-- **[CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)**: Interface gráfica moderna e estilizada.
-- **[PyAutoGUI](https://pyautogui.readthedocs.io/)**: Automação de eventos do mouse e simulação de movimentos com Fail-Safe.
-- **[Keyboard](https://github.com/boppreh/keyboard)**: Captura global da tecla de atalho F8.
-- **[Threading](https://docs.python.org/3/library/threading.html)**: Execução assíncrona para manter a GUI fluida.
+## 🐍 Versão Clássica em Python
+A versão legada construída em Python CustomTkinter continua disponível no projeto:
+```bash
+pip install -r requirements.txt
+python app.py
+```

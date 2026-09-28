@@ -1,0 +1,71 @@
+{
+  "name": "autoclicker-pro",
+  "version": "2.0.0",
+  "description": "Auto Clicker Pro de alta performance construído com Electron e C# Native backend",
+  "main": "src/main.js",
+  "scripts": {
+    "compile:backend": "powershell -Command \"if (-not (Test-Path 'bin')) { New-Item -ItemType Directory -Path 'bin' }; & 'C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe' /nologo /optimize+ /target:exe /out:bin\\ClickerBackend.exe backend\\ClickerBackend.cs\"",
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "npm run compile:backend && electron-builder --win nsis portable",
+    "pack": "npm run compile:backend && electron-builder --dir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevPereiraa/Autoclicker.git"
+  },
+  "keywords": [
+    "autoclicker",
+    "electron",
+    "automation",
+    "mouse-clicker",
+    "anti-afk"
+  ],
+  "author": "DevPereiraa",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.autoclicker.pro",
+    "productName": "Auto Clicker Pro",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/ClickerBackend.exe",
+        "to": "bin/ClickerBackend.exe"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Auto Clicker Pro"
+    }
+  }
+}
